@@ -104,7 +104,21 @@ M.tabufline = {
       "Goto next buffer",
     },
 
+    ["S-l"] = {
+      function()
+        require("nvchad.tabufline").tabuflineNext()
+      end,
+      "Goto next buffer",
+    },
+
     ["<S-tab>"] = {
+      function()
+        require("nvchad.tabufline").tabuflinePrev()
+      end,
+      "Goto prev buffer",
+    },
+
+    ["S-h"] = {
       function()
         require("nvchad.tabufline").tabuflinePrev()
       end,
@@ -113,6 +127,13 @@ M.tabufline = {
 
     -- close buffer + hide terminal buffer
     ["<leader>x"] = {
+      function()
+        require("nvchad.tabufline").close_buffer()
+      end,
+      "Close buffer",
+    },
+
+    ["S-q"] = {
       function()
         require("nvchad.tabufline").close_buffer()
       end,
