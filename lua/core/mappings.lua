@@ -104,7 +104,7 @@ M.tabufline = {
       "Goto next buffer",
     },
 
-    ["S-l"] = {
+    ["<S-l>"] = {
       function()
         require("nvchad.tabufline").tabuflineNext()
       end,
@@ -118,7 +118,7 @@ M.tabufline = {
       "Goto prev buffer",
     },
 
-    ["S-h"] = {
+    ["<S-h>"] = {
       function()
         require("nvchad.tabufline").tabuflinePrev()
       end,
@@ -133,7 +133,7 @@ M.tabufline = {
       "Close buffer",
     },
 
-    ["S-q"] = {
+    ["<S-q>"] = {
       function()
         require("nvchad.tabufline").close_buffer()
       end,
