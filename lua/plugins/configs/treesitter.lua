@@ -1,5 +1,18 @@
 local options = {
-  ensure_installed = { "lua", "c", "bash", "awk", "cmake", "cpp", "css", "diff", "dockerfile", "fish", "git_config", "markdown", "org", "python", "rust", "typescript", "html", "json", "json5", "javascript", "java", "http", "sql", "xml", "yaml", "toml", "comment" },
+  ensure_installed = { 
+    -- c
+    "c", "cmake", "cpp", 
+    -- language
+    "python", "rust",  "java",  "sql", "go", "gomod", "gosum",
+    -- script
+    "lua" , "fish","dockerfile",  "git_config", "bash", "awk", "vim",
+    -- web
+    "css","typescript","html", "json", "json5", "javascript", "http", "tsx",
+    -- config
+    "diff","xml", "yaml", "toml", "comment" 
+    -- notes
+    "markdown", "org", 
+  },
 
   highlight = {
     enable = true,

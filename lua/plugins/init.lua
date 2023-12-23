@@ -121,6 +121,12 @@ local default_plugins = {"nvim-lua/plenary.nvim", {
     end
 }, {
     "neovim/nvim-lspconfig",
+    dependencies = {
+         "jose-elias-alvarez/null-ls.nvim",
+         config = function()
+           require "plugins.configs.null-ls"
+         end,
+    },
     init = function()
         require("core.utils").lazy_load "nvim-lspconfig"
     end,
