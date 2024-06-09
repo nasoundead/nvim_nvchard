@@ -122,16 +122,40 @@ local default_plugins = {"nvim-lua/plenary.nvim", {
 }, {
     "neovim/nvim-lspconfig",
     dependencies = {
-         "jose-elias-alvarez/null-ls.nvim",
-         config = function()
-           require "plugins.configs.null-ls"
-         end,
+        "jose-elias-alvarez/null-ls.nvim",
+        config = function()
+            require "plugins.configs.null-ls"
+        end
     },
     init = function()
         require("core.utils").lazy_load "nvim-lspconfig"
     end,
     config = function()
         require "plugins.configs.lspconfig"
+    end
+}, {
+    "rust-lang/rust.vim",
+    ft = "rust",
+    init = function()
+        require("core.utils").lazy_load "rust.vim"
+        vim.g.rustfmt_autosave = 1
+    end
+}, {
+    "simrat39/rust-tools.nvim",
+    dependencies = {"neovim/nvim-lspconfig"},
+    opts = function()
+        return require("plugins.configs.rust-tools")
+    end,
+    config = function(_, opts)
+        require"rust-tools".setup(opts)
+    end
+}, {"mfussenegger/nvim-dap"}, {
+    "saecki/crates.nvim",
+    ft = {"rust", "toml"},
+    config = function(_, opts)
+        local crates = require("crates")
+        crates.setup(opts)
+        crates.show()
     end
 }, -- load luasnips + cmp related in insert mode only
 {
@@ -166,7 +190,12 @@ local default_plugins = {"nvim-lua/plenary.nvim", {
     {"saadparwaiz1/cmp_luasnip", "hrsh7th/cmp-nvim-lua", "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer",
      "hrsh7th/cmp-path"}},
     opts = function()
-        return require "plugins.configs.cmp"
+        local M = require "plugins.configs.cmp"
+        table.insert(M.sources, {
+            name = "crates",
+            group_index = 2
+        })
+        return M
     end,
     config = function(_, opts)
         require("cmp").setup(opts)
@@ -239,7 +268,44 @@ local default_plugins = {"nvim-lua/plenary.nvim", {
             on_attach = my_on_attach
         }
     end
-}, {
+}, -- folding
+{
+    "kevinhwang91/nvim-ufo",
+    dependencies = {{"kevinhwang91/promise-async"}, {
+        "luukvbaal/statuscol.nvim",
+        opts = function()
+            return require "plugins.configs.statuscol"
+        end,
+        config = function(_, opts)
+            require("statuscol").setup(opts)
+        end
+    }},
+    event = "BufRead",
+    keys = {{"zR", function()
+        require("ufo").openAllFolds()
+    end}, {"zM", function()
+        require("ufo").closeAllFolds()
+    end}, {"K", function()
+        local winid = require('ufo').peekFoldedLinesUnderCursor()
+        if not winid then
+            vim.lsp.buf.hover()
+        end
+    end}},
+    opts = function()
+        return require "plugins.configs.ufo"
+    end,
+    config = function(_, opts)
+        vim.o.foldcolumn = '1'
+        vim.o.foldlevel = 99
+        vim.o.foldlevelstart = 99
+        vim.o.foldenable = true
+        vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+        -- vim.o.foldmethod = 'expr'
+        -- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+        require("ufo").setup(opts)
+    end
+}, -- statusline
+{
     "ahmedkhalf/project.nvim",
     opts = function()
         return require "plugins.configs.project"
@@ -248,6 +314,48 @@ local default_plugins = {"nvim-lua/plenary.nvim", {
         local project = require("project_nvim")
         project.setup(opts)
     end
+}, {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    -- stylua: ignore
+    keys = {{
+        "s",
+        mode = {"n", "x", "o"},
+        function()
+            require("flash").jump()
+        end,
+        desc = "Flash"
+    }, {
+        "S",
+        mode = {"n", "x", "o"},
+        function()
+            require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter"
+    }, {
+        "r",
+        mode = "o",
+        function()
+            require("flash").remote()
+        end,
+        desc = "Remote Flash"
+    }, {
+        "R",
+        mode = {"o", "x"},
+        function()
+            require("flash").treesitter_search()
+        end,
+        desc = "Treesitter Search"
+    }, {
+        "<c-s>",
+        mode = {"c"},
+        function()
+            require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search"
+    }}
 }, {
     "nvim-telescope/telescope.nvim",
     dependencies = {"nvim-treesitter/nvim-treesitter", {

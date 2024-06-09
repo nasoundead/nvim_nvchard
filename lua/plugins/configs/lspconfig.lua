@@ -40,6 +40,10 @@ M.capabilities.textDocument.completion.completionItem = {
         properties = {"documentation", "detail", "additionalTextEdits"}
     }
 }
+M.capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
 
 require("lspconfig").lua_ls.setup {
     on_attach = M.on_attach,
@@ -69,6 +73,35 @@ require("lspconfig").gopls.setup {
     capabilities = M.capabilities,
 
     settings = {}
+}
+
+local util = require("lspconfig/util")
+require("lspconfig").rust_analyzer.setup {
+    on_attach = M.on_attach,
+    capabilities = M.capabilities,
+    filetypes = {"rust"},
+    root_dir = util.root_pattern("Cargo.toml"),
+    settings = {
+        ["rust-analyzer"] = {
+            checkOnSave = {
+                command = "clippy"
+            },
+            cargo = {
+                buildScripts = {
+                    enable = true
+                },
+                allFeatures = true
+            },
+            procMacro = {
+                enable = true
+            },
+            diagnostics = {
+                enable = true,
+                disabled = {},
+                enableExperimental = true
+            }
+        }
+    }
 }
 
 return M
