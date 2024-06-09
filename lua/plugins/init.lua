@@ -300,8 +300,6 @@ local default_plugins = {"nvim-lua/plenary.nvim", {
         vim.o.foldlevelstart = 99
         vim.o.foldenable = true
         vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-        -- vim.o.foldmethod = 'expr'
-        -- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
         require("ufo").setup(opts)
     end
 }, -- statusline
