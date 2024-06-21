@@ -147,7 +147,9 @@ local default_plugins = {"nvim-lua/plenary.nvim", {
         return require("plugins.configs.rust-tools")
     end,
     config = function(_, opts)
-        require"rust-tools".setup(opts)
+        local rt = require "rust-tools"
+        rt.setup(opts)
+        rt.inlay_hints.enable()
     end
 }, {"mfussenegger/nvim-dap"}, {
     "saecki/crates.nvim",
@@ -300,7 +302,10 @@ local default_plugins = {"nvim-lua/plenary.nvim", {
         vim.o.foldlevelstart = 99
         vim.o.foldenable = true
         vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-        require("ufo").setup(opts)
+        vim.wo.foldmethod = 'expr'
+        vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+        local ufo = require("ufo")
+        ufo.setup(opts)
     end
 }, -- statusline
 {
