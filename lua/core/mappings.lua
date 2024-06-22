@@ -22,10 +22,10 @@ M.general = {
         ["<C-l>"] = {"<C-w>l", "Window right"},
         ["<C-j>"] = {"<C-w>j", "Window down"},
         ["<C-k>"] = {"<C-w>k", "Window up"},
-        ["sv"] = {":vsp<CR>", "Split Window vertical"},
-        ["sh"] = {":sp<CR>", "Split Window horizontal"},
-        ["sc"] = {"<c-w>c", "Close Window"},
-        ["so"] = {"<c-w>c", "Other Window"},
+        -- ["sv"] = {":vsp<CR>", "Split Window vertical"},
+        -- ["sh"] = {":sp<CR>", "Split Window horizontal"},
+        -- ["sc"] = {"<c-w>c", "Close Window"},
+        -- ["so"] = {"<c-w>c", "Other Window"},
         ["<S-q>"] = {function()
             require("nvchad.tabufline").close_buffer()
         end, "Close buffer"},

@@ -29,7 +29,7 @@ local options = {
     provider_selector = function(bufnr, filetype, buftype)
         return {'treesitter', 'indent'}
     end
-    -- fold_virt_text_handler = handler,
+    -- fold_virt_text_handler = handler
     -- enable_get_fold_virt_text = true
 }
 
