@@ -11,8 +11,8 @@ g.transparency = config.ui.transparency
 -------------------------------------- neovide ------------------------------------------
 
 if vim.g.neovide then
--- Put anything you want to happen only in Neovide here
-    vim.g.neovide_transparency = 0.95
+    -- Put anything you want to happen only in Neovide here
+    vim.g.neovide_transparency = 0.99
     vim.g.neovide_remember_window_size = true
     vim.g.neovide_cursor_vfx_mode = "railgun"
 
@@ -24,15 +24,17 @@ if vim.g.neovide then
         end
     end
 
-    local ime_input = vim.api.nvim_create_augroup("ime_input", { clear = true })
+    local ime_input = vim.api.nvim_create_augroup("ime_input", {
+        clear = true
+    })
 
-    vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
+    vim.api.nvim_create_autocmd({"InsertEnter", "InsertLeave"}, {
         group = ime_input,
         pattern = "*",
         callback = set_ime
     })
 
-    vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdlineLeave" }, {
+    vim.api.nvim_create_autocmd({"CmdlineEnter", "CmdlineLeave"}, {
         group = ime_input,
         pattern = "[/\\?]",
         callback = set_ime
@@ -153,3 +155,14 @@ local new_cmd = vim.api.nvim_create_user_command
 -- new_cmd("NvChadUpdate", function()
 --     require "nvchad.updater"()
 -- end, {})
+
+-- autocmd("LspAttach", {
+--     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+--     callback = function(args)
+--         local client = vim.lsp.get_client_by_id(args.data.client_id)
+--         if client.server_capabilities.inlayHintProvider then
+--             vim.lsp.inlay_hint.enable(args.buf, true)
+--         end
+--         -- whatever other lsp config you want
+--     end
+-- })

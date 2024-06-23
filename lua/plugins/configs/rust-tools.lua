@@ -18,7 +18,7 @@ local options = {
         enabled = true,
         open_cmd = "vsplit"
     },
-    tools - {
+    tools = {
         -- These apply to the default RustSetInlayHints command
         inlay_hints = {
             -- automatically set inlay hints (type hints)
