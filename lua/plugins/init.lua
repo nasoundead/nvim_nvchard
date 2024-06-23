@@ -447,6 +447,36 @@ local default_plugins = {
 			dofile(vim.g.base46_cache .. "whichkey")
 			require("which-key").setup(opts)
 		end,
+	}, -- nvim surround
+	--     Old text                    Command         New text
+	-- --------------------------------------------------------------------------------
+	--     surr*ound_words             ysiw)           (surround_words)
+	--     *make strings               ys$"            "make strings"
+	--     [delete ar*ound me!]        ds]             delete around me!
+	--     remove <b>HTML t*ags</b>    dst             remove HTML tags
+	--     'change quot*es'            cs'"            "change quotes"
+	--     <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
+	--     delete(functi*on calls)     dsf             function calls-
+	{
+		"kylechui/nvim-surround",
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		opts = function()
+			return {}
+		end,
+		config = function(_, opts)
+			local sur = require("nvim-surround")
+			sur.setup(opts)
+		end,
+	},
+	{
+		"Bekaboo/dropbar.nvim",
+		event = "VeryLazy",
+		-- optional, but required for fuzzy finder support
+		dependencies = { "nvim-telescope/telescope-fzf-native.nvim" },
+		-- config = function(_, opts)
+		-- 	require("dropbar").setup(opts)
+		-- end,
 	},
 }
 
