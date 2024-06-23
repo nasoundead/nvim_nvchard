@@ -170,7 +170,7 @@ local default_plugins = {
 		config = function(_, opts)
 			local rt = require("rust-tools")
 			rt.setup(opts)
-			rt.inlay_hints.enable()
+			-- rt.inlay_hints.enable()
 		end,
 	},
 	{ "mfussenegger/nvim-dap" },
@@ -491,6 +491,27 @@ local default_plugins = {
 	{
 		"codota/tabnine-nvim",
 		build = tabnine_build_path(),
+
+		event = "VeryLazy",
+		opts = function()
+			return require("plugins.configs.tabnine")
+		end,
+
+		config = function(_, opts)
+			local tab = require("tabnine")
+			tab.setup(opts)
+			-- require("tabnine.keymaps")
+			--- Example integration with Tabnine and LuaSnip; falling back to inserting tab if neither has a completion
+			vim.keymap.set("i", "<tab>", function()
+				if require("tabnine.keymaps").has_suggestion() then
+					return require("tabnine.keymaps").accept_suggestion()
+				elseif require("luasnip").jumpable(1) then
+					return require("luasnip").jump(1)
+				else
+					return "<tab>"
+				end
+			end, { expr = true })
+		end,
 	},
 }
 
