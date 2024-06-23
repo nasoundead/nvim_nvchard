@@ -1,5 +1,15 @@
 -- All plugins have lazy=true by default,to load a plugin on startup just lazy=false
 -- List of all default plugins & their definitions
+
+-- Get platform dependant build script
+local function tabnine_build_path()
+	-- Replace vim.uv with vim.loop if using NVIM 0.9.0 or below
+	if vim.uv.os_uname().sysname == "Windows_NT" then
+		return "pwsh.exe -file .\\dl_binaries.ps1"
+	else
+		return "./dl_binaries.sh"
+	end
+end
 local default_plugins = {
 	"nvim-lua/plenary.nvim",
 	{
@@ -477,6 +487,10 @@ local default_plugins = {
 		-- config = function(_, opts)
 		-- 	require("dropbar").setup(opts)
 		-- end,
+	},
+	{
+		"codota/tabnine-nvim",
+		build = tabnine_build_path(),
 	},
 }
 
