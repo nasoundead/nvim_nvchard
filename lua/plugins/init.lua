@@ -347,6 +347,10 @@ local default_plugins = {"nvim-lua/plenary.nvim", {
         end,
         desc = "Flash Treesitter"
     }, {
+        "S",
+        false,
+        mode = {"v"}
+    }, {
         "r",
         mode = "o",
         function()
