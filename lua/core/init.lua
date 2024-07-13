@@ -12,7 +12,7 @@ g.transparency = config.ui.transparency
 
 if vim.g.neovide then
     -- Put anything you want to happen only in Neovide here
-    vim.g.neovide_transparency = 0.99
+    vim.g.neovide_transparency = 0.96
     vim.g.neovide_remember_window_size = true
     vim.g.neovide_cursor_vfx_mode = "railgun"
 

@@ -80,6 +80,18 @@ local default_plugins = {"nvim-lua/plenary.nvim", {
         dofile(vim.g.base46_cache .. "syntax")
         require("nvim-treesitter.configs").setup(opts)
     end
+}, {
+    "HiPhish/nvim-ts-rainbow2",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    event = "BufRead",
+    opts = function()
+        return require("plugins.configs.rainbow")
+    end,
+    config = function(_, opts)
+        require("nvim-treesitter.configs").setup({
+            rainbow = opts
+        })
+    end
 }, -- git stuff
 {
     "lewis6991/gitsigns.nvim",
