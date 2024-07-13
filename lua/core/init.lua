@@ -68,7 +68,9 @@ opt.number = true
 opt.numberwidth = 4
 opt.ruler = false
 
-opt.guifont = "JetBrainsMono Nerd Font:h11"
+-- opt.guifont = "Iosevka Nerd Font:h11"
+opt.guifont = "FiraCode Nerd Font:h12"
+-- opt.guifont = "JetBrainsMono Nerd Font:h11"
 -- opt.guifont = "FiraCode Nerd Font:h11"
 
 -- disable nvim intro
