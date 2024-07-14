@@ -5,17 +5,17 @@
 --   visual_block_mode = "x",
 --   term_mode = "t",
 --   command_mode = "c",
-
 -- Silent keymap option
-local opts = { silent = true }
+local opts = {
+    silent = true
+}
 
 local keymap = vim.keymap
 
---Remap space as leader key
+-- Remap space as leader key
 keymap.set("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
 
 -- --------插入模式 -----------
 keymap.set("i", "jk", "<ESC>")
@@ -34,8 +34,8 @@ keymap.set("v", "<A-k>", ":m .-2<CR>==", opts)
 -- Insert --
 -- Press jk fast to enter
 keymap.set("i", "jk", "<ESC>", opts)
-keymap.set("i", "<C-f>", "<right>", opts)  --move cursor right
-keymap.set("i", "<C-b>", "<left>", opts)   --move cursor left
+keymap.set("i", "<C-f>", "<right>", opts) -- move cursor right
+keymap.set("i", "<C-b>", "<left>", opts) -- move cursor left
 keymap.set("i", "<C-a>", "<esc>I", opts)
 keymap.set("i", "<C-e>", "<esc>A", opts)
 
@@ -80,7 +80,6 @@ keymap.set("n", "sk", ":resize -10<CR>")
 keymap.set("n", "<S-l>", ":bnext<CR>", opts)
 keymap.set("n", "<S-h>", ":bprevious<CR>", opts)
 
-
 -- Close buffers
 keymap.set("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
 
@@ -89,7 +88,6 @@ keymap.set("n", "<C-s>", ":w<CR>", opts)
 
 -- Better paste
 keymap.set("v", "p", '"_dP', opts)
-
 
 -- 插件
 -- nvim-tree
