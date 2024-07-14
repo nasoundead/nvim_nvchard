@@ -459,4 +459,13 @@ M.gitsigns = {
     }
 }
 
+-- M.neogit = {
+--     plugin = true,
+--     n = {
+--         ["<leader>gs"] = {function()
+--             require("neogit").open()
+--         end, "open neogit using defaults"}
+--     }
+-- }
+
 return M
